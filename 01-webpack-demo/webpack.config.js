@@ -3,6 +3,7 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 /**
  * @type { Configuration }
  */
@@ -16,6 +17,9 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html'
+    }),
+    new webpack.BannerPlugin({
+      banner: '@版权所有 hucongcong'
     })
   ],
   module: {
@@ -25,7 +29,8 @@ const config = {
         use: path.join(__dirname, './loaders/cc-loader.js')
       }
     ]
-  }
+  },
+  devtool: 'source-map'
 }
 
 module.exports = config
