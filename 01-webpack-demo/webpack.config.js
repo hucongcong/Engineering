@@ -3,6 +3,7 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CCPlugin = require('./plugins/cc-plugin')
 const webpack = require('webpack')
 /**
  * @type { Configuration }
@@ -20,6 +21,10 @@ const config = {
     }),
     new webpack.BannerPlugin({
       banner: '@版权所有 hucongcong'
+    }),
+    new CCPlugin({
+      header: '头部',
+      footer: '底部'
     })
   ],
   module: {
