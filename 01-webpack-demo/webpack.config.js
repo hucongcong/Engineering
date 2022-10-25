@@ -17,7 +17,15 @@ const config = {
     new HtmlWebpackPlugin({
       template: './index.html'
     })
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.cc$/,
+        use: path.join(__dirname, './loaders/cc-loader.js')
+      }
+    ]
+  }
 }
 
 module.exports = config
