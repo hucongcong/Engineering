@@ -36,13 +36,16 @@ const config = {
         parser: {
           dataUrlCondition: {
             // 小于20kb的生成base64
-            maxSize: 20 * 1024,
+            maxSize: 4 * 1024,
           }
         },
         generator: {
-          filename: 'img/[name].[hash6].[ext]',
-           publicPath: 'img/',
+          filename: 'img/[name].[hash].[ext]',
         },
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader'
       }
     ]
   }
