@@ -3,6 +3,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const webpack = require('webpack')
 /**
  * @type {Configuration}
@@ -61,6 +63,20 @@ const config = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       }
+    ]
+  },
+  optimization: {
+    // 在development模式下开启压缩
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          compress: true
+          // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+        }
+      }),
+      new CssMinimizerPlugin()
     ]
   }
 }
