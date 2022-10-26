@@ -19,7 +19,7 @@ const config = {
     filename: 'js/[name].js',
     path: path.join(__dirname, 'dist')
   },
-  mode: 'development',
+  mode: 'production',
   // devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
@@ -77,7 +77,18 @@ const config = {
         }
       }),
       new CssMinimizerPlugin()
-    ]
+    ],
+    splitChunks: {
+      chunks: 'all',
+      minSize: 300 * 1024,
+      name: 'vendor',
+      cacheGroups: {
+        jquery: {
+          name: 'jquery',
+          test: /jquery/
+        }
+      }
+    }
   }
 }
 
