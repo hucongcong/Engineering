@@ -7,9 +7,13 @@ const webpack = require('webpack')
  * @type {Configuration}
  */
 const config = {
-  entry: './src/index.js',
+  // 多入口配置
+  entry: {
+    index: './src/index.js',
+    login: './src/login.js'
+  },
   output: {
-    filename: 'js/[hash].js',
+    filename: 'js/[name].js',
     path: path.join(__dirname, 'dist')
   },
   mode: 'development',
@@ -17,11 +21,13 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      chunks: ['index']
     }),
     new HtmlWebpackPlugin({
       template: './src/login.html',
-      filename: 'login.html'
+      filename: 'login.html',
+      chunks: ['login']
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
