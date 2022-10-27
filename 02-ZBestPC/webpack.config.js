@@ -6,6 +6,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const webpack = require('webpack')
+// 清空dist文件夹
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin')
 /**
  * @type {Configuration}
  */
@@ -38,7 +42,8 @@ const config = {
     }),
     new MiniCssExtractPlugin({
       filename: './css/[name].css'
-    })
+    }),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
