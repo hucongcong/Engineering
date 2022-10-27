@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
 // 清空dist文件夹
 const {
   CleanWebpackPlugin
@@ -17,11 +18,12 @@ const config = {
   // 多入口配置
   entry: {
     index: './src/index.js',
-    login: './src/login.js'
+    login: './src/login.js',
+    main: './src/main.js'
   },
   output: {
     filename: 'js/[name].js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, '../dist')
   },
   mode: 'production',
   // devtool: 'source-map',
@@ -36,6 +38,11 @@ const config = {
       filename: 'login.html',
       chunks: ['login']
     }),
+    new HtmlWebpackPlugin({
+      template: './src/main.html',
+      filename: 'main.html',
+      chunks: ['main']
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
@@ -43,10 +50,16 @@ const config = {
     new MiniCssExtractPlugin({
       filename: './css/[name].css'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new VueLoaderPlugin()
   ],
   module: {
     rules: [
+      // 处理vue文件
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
       {
         test: /\.(png|jpe?g|svg|gif)$/i,
         type: 'asset',
